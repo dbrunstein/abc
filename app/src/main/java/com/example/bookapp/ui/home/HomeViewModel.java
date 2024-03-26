@@ -16,7 +16,7 @@ public class HomeViewModel extends ViewModel {
         books = new MutableLiveData<>();
         //mText.setValue("WELCOME TO THE BOOK ZONE!\n ONLY BOOKS IN ANIME MOLOCH");
         //books.setValue(new JSONArray("[{\"moloch\":666,}]"));
-        books.setValue(new Book());
+        books.setValue(new Book(1,"test"));
     }
 
     public LiveData<Book> getBooks() {

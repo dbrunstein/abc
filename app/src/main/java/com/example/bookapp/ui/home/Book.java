@@ -6,16 +6,20 @@ import java.util.ArrayList;
 
 public class Book {
 
+    private int id;
+    private String title;
     private Author author;
-    private String description;
-    private double rating;
-    private ArrayList<Tag> tags;
-    private ArrayList<Comment> comments;
+    //private String description;
+    //private double rating;
+    //private ArrayList<Tag> tags;
+    //private ArrayList<Comment> comments;
 
-    public Book(){
-        description = "MOULOUDE LA FAMILLE WESH";
+    public Book(int id, String title){
+        id = id;
+        title = title;
     }
 
+    /*
     public void setAuthor(Author auth){
         author = auth;
     }
@@ -28,8 +32,9 @@ public class Book {
     public void setTags(ArrayList<Tag> givenTag){
         tags = givenTag;
     }
+
     public void setComments(ArrayList<Comment> givenComments){
         comments = givenComments;
-    }
+    }*/
 
 }
