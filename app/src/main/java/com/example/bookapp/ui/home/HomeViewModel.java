@@ -4,16 +4,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 public class HomeViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private final MutableLiveData<Book> books; // faire une class book ou est convertit les
+                                                    // livre en objet java
 
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+    public HomeViewModel() throws JSONException {
+        books = new MutableLiveData<>();
+        //mText.setValue("WELCOME TO THE BOOK ZONE!\n ONLY BOOKS IN ANIME MOLOCH");
+        //books.setValue(new JSONArray("[{\"moloch\":666,}]"));
+        books.setValue(new Book());
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<Book> getBooks() {
+        return books;
     }
 }
