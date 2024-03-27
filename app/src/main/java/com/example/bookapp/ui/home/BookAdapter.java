@@ -6,13 +6,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bookapp.ui.authors.Author;
 import org.json.JSONArray;
+
+import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter{
 
+    private List<Book> books;
 
-    public BookAdapter(JSONArray books, Context con){
-
+    public BookAdapter(List<Book> books, Context con){
+        this.books = books;
     }
     @NonNull
     @Override
