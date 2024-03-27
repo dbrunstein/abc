@@ -19,10 +19,22 @@ public class Book {
         title = title;
     }
 
-    /*
+    public String getTitle() {
+        return title;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
     public void setAuthor(Author auth){
         author = auth;
     }
+    /*
     public void setDescription(String desc){
         description = desc;
     }
