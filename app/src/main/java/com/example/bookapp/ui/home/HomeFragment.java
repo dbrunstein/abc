@@ -43,25 +43,6 @@ public class HomeFragment extends Fragment {
             bookRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
             bookRecycler.setAdapter(new BookAdapter(books,getContext()));
         });
-
-
-
-        /*
-                pokeViewModel = new ViewModelProvider(this).get(PokeViewModel.class);
-        pokeViewModel.getJson().observe(this,pokemons -> {
-
-            RecyclerView pokeRCV = findViewById(R.id.pokeRecycler);
-            if (pokeRCV == null) {
-                Log.d("mouloude", "AK IS DEAD");
-            }
-            //JSONArray jsonArray = pokeViewModel.getJson().getValue();
-            pokeRCV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-            pokeRCV.setAdapter(new PokeAdapter(pokemons,this));
-        });
-
-
-        */
-
         return root;
     }
 
