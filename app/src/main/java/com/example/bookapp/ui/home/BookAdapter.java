@@ -1,6 +1,7 @@
 package com.example.bookapp.ui.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import java.util.List;
 public class BookAdapter extends RecyclerView.Adapter{
 
     private List<Book> books;
-    public BookAdapter(List<Book> books, Context con){
+    public BookAdapter(List<Book> books){
         this.books = books;
     }
     @NonNull
@@ -32,11 +33,13 @@ public class BookAdapter extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ((BookViewHolder) viewHolder).getTitle().setText(books.get(0).getTitle());
+        Log.d("test","bonjour");
+        ((BookViewHolder) viewHolder).getTitle().setText(books.get(i).getTitle());
+        //Log.d("test", books.get(0).getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return books.size();
     }
 }

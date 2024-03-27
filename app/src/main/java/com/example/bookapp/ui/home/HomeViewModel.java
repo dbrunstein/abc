@@ -1,5 +1,6 @@
 package com.example.bookapp.ui.home;
 
+import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,6 +22,7 @@ public class HomeViewModel extends ViewModel {
         //books.setValue(new JSONArray("[{\"moloch\":666,}]"));
         ArrayList<Book> testList = new ArrayList<>();
         testList.add(new Book(0,"H vs Zedator"));
+        Log.d("test","test");
         books.setValue(testList);
     }
 
