@@ -15,8 +15,12 @@ public class Book {
     //private ArrayList<Comment> comments;
 
     public Book(int id, String title){
-        id = id;
-        title = title;
+        this.title = title;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

@@ -15,11 +15,27 @@
             android:id="@+id/navigation_dashboard"
             android:name="com.example.bookapp.ui.authors.AuthorFragment"
             android:label="@string/title_dashboard"
-            tools:layout="@layout/fragment_authors"/>
+            tools:layout="@layout/fragment_authors">
+    <action
+            android:id="@+id/action_author_details"
+            app:destination="@id/author_details" />
+
+
+            </fragment>
+
 
     <fragment
             android:id="@+id/navigation_notifications"
             android:name="com.example.bookapp.ui.notifications.NotificationsFragment"
             android:label="@string/title_notifications"
             tools:layout="@layout/fragment_notifications"/>
+
+    <fragment
+            android:id="@+id/author_details"
+            android:name="com.example.bookapp.ui.authors.AuthorDetailsFragment"
+            android:label="Author Details"
+            tools:layout="@layout/fragment_notifications"
+    />
+
+
 </navigation>
