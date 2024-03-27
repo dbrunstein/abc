@@ -7,6 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.bookapp.ui.authors.Author;
+import com.example.bookapp.ui.home.Book;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +27,7 @@ public class APIRequest {
 
 
 
-        String url = "http://192.168.1.93:3000/authors";
+        String url = "http://192.168.211.224:3000/authors?include=book";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -42,7 +43,10 @@ public class APIRequest {
                                 String firstname = author.getString("firstname");
                                 String lastname = author.getString("lastname");
                                 int id = author.getInt("id");
-                                myList.add(new Author(id, firstname, lastname)); // Ajouter le nom de l'auteur à la liste
+                                Author newAuthor = new Author(id, firstname, lastname);
+                                newAuthor.getBooks().add(new Book(author.getJSONArray("books").getJSONObject(i).getInt("id"),author.getJSONArray("books").getJSONObject(i).getString("title")));
+                                myList.add(newAuthor); // Ajouter le nom de l'auteur à la liste
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -65,4 +69,5 @@ public class APIRequest {
         // Ajouter la requête à la file de requêtes
 
     }
+
 }

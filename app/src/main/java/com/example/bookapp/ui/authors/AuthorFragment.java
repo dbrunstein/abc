@@ -1,6 +1,7 @@
 package com.example.bookapp.ui.authors;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.bookapp.databinding.FragmentAuthorsBinding;
 
-public class AuthorFragment extends Fragment {
+public class AuthorFragment extends Fragment{
 
     private FragmentAuthorsBinding binding;
+    private AuthorAdapter mAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -31,8 +33,8 @@ public class AuthorFragment extends Fragment {
 
 
         // Observer les données dans le ViewModel et mettre à jour l'adaptateur
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), authors -> {
-                    AuthorAdapter mAdapter = new AuthorAdapter(authors); // Adapter que vous avez créé
+        dashboardViewModel.getAuthors().observe(getViewLifecycleOwner(), authors -> {
+                    mAdapter = new AuthorAdapter(authors); // Adapter que vous avez créé
                     mRecyclerView.setAdapter(mAdapter);
         });
             return root;
@@ -44,4 +46,7 @@ public class AuthorFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
+
 }

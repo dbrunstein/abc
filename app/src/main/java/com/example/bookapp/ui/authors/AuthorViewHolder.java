@@ -9,15 +9,19 @@ import org.jetbrains.annotations.NotNull;
 
 
 
-public class AuthorViewHolder extends RecyclerView.ViewHolder {
+public class AuthorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     private TextView firstname;
     private TextView lastname;
 
-    public AuthorViewHolder(@NonNull @NotNull View itemView) {
+    private OnItemClickListener clickListener;
+
+    public AuthorViewHolder(@NonNull @NotNull View itemView, OnItemClickListener listener) {
         super(itemView);
         firstname = itemView.findViewById(R.id.firstname);
         lastname = itemView.findViewById(R.id.lastname);
+        this.clickListener = listener;
+        itemView.setOnClickListener(this);
     }
 
     public TextView getFirstname() {
@@ -26,5 +30,10 @@ public class AuthorViewHolder extends RecyclerView.ViewHolder {
 
     public TextView getLastname() {
         return lastname;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (clickListener != null) clickListener.onClick(view, getAdapterPosition());
     }
 }

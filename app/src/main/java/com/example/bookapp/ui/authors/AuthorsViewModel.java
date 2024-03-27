@@ -31,8 +31,17 @@ public class AuthorsViewModel extends AndroidViewModel {
         //mText.setValue("This is author fragment");
     }
 
-    public LiveData<List<Author>> getText() {
+    public LiveData<List<Author>> getAuthors() {
         return mText;
+    }
+
+    public Author getAuthor(int id){
+        for(Author author : mText.getValue()){
+            if(author.getId() == id){
+                return author;
+            }
+        }
+        return null;
     }
 
 }
