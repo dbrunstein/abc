@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookapp.R;
 import com.example.bookapp.databinding.FragmentHomeBinding;
+import com.example.bookapp.ui.authors.AuthorAdapter;
 
 public class HomeFragment extends Fragment {
 
@@ -33,15 +34,20 @@ public class HomeFragment extends Fragment {
 
         //final TextView textView = binding.textHome;
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        RecyclerView bookRecycler = binding.bookRecycler;
+        bookRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        Log.d("test", String.valueOf(homeViewModel.getBooks().getValue().size()));
 
         homeViewModel.getBooks().observe(getViewLifecycleOwner(), books ->{
 
-            RecyclerView bookRecycler = getView().findViewById(R.id.bookRecycler);
+            //RecyclerView bookRecycler = getView().findViewById(R.id.bookRecycler);
+            Log.d("books", homeViewModel.getBooks().getValue().get(0).getTitle());
             if (bookRecycler == null) {
                 Log.d("error", "book recycler null");
             }
-            bookRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-            bookRecycler.setAdapter(new BookAdapter(books,getContext()));
+            BookAdapter adapter= new BookAdapter(books);
+            bookRecycler.setAdapter(adapter);
+            Log.d("size", String.valueOf(adapter.getItemCount()));
         });
         return root;
     }
