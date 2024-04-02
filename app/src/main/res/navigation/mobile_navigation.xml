@@ -9,7 +9,12 @@
             android:id="@+id/navigation_home"
             android:name="com.example.bookapp.ui.home.HomeFragment"
             android:label="@string/title_home"
-            tools:layout="@layout/fragment_home"/>
+            tools:layout="@layout/fragment_home">
+    <action
+            android:id="@+id/action_book_details"
+            app:destination="@id/book_details" />
+    </fragment>
+
 
     <fragment
             android:id="@+id/navigation_dashboard"
@@ -21,7 +26,7 @@
             app:destination="@id/author_details" />
 
 
-            </fragment>
+    </fragment>
 
 
     <fragment
@@ -31,11 +36,22 @@
             tools:layout="@layout/fragment_notifications"/>
 
     <fragment
+            android:id="@+id/book_details"
+            android:name="com.example.bookapp.ui.home.BookDetailsFragment"
+            android:label="@string/title_book_details"
+            tools:layout="@layout/fragment_home"
+    />
+
+    <fragment
             android:id="@+id/author_details"
             android:name="com.example.bookapp.ui.authors.AuthorDetailsFragment"
             android:label="Author Details"
-            tools:layout="@layout/fragment_notifications"
-    />
+            tools:layout="@layout/fragment_authors"
+    >
+        <action
+                android:id="@+id/action_book_details"
+                app:destination="@id/book_details" />
+    </fragment>
 
 
 </navigation>
