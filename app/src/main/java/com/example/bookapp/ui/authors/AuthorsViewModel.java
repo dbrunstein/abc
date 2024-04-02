@@ -18,14 +18,14 @@ public class AuthorsViewModel extends AndroidViewModel {
     private final MutableLiveData<List<Author>> mText;
 
     private APIRequest apiRequest = new APIRequest();
+    private RequestQueue queue;
 
 
     public AuthorsViewModel(@NonNull Application application) {
         super(application);
         mText = new MutableLiveData<>();
-        RequestQueue queue = Volley.newRequestQueue(application.getApplicationContext());
-        JsonArrayRequest getRequest = apiRequest.getAuthors(mText);
-        queue.add(getRequest);
+        queue = Volley.newRequestQueue(application.getApplicationContext());
+        this.load_authors();
 
 
         //mText.setValue("This is author fragment");
@@ -42,6 +42,11 @@ public class AuthorsViewModel extends AndroidViewModel {
             }
         }
         return null;
+    }
+
+    public void load_authors(){
+        JsonArrayRequest getRequest = apiRequest.getAuthors(mText);
+        queue.add(getRequest);
     }
 
 }

@@ -8,22 +8,29 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.bookapp.APIRequest;
+import com.example.bookapp.R;
 import com.example.bookapp.databinding.FragmentAuthorsBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class AuthorFragment extends Fragment{
 
     private FragmentAuthorsBinding binding;
     private AuthorAdapter mAdapter;
+    AuthorsViewModel dashboardViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        AuthorsViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(AuthorsViewModel.class);
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+         dashboardViewModel = new ViewModelProvider(this).get(AuthorsViewModel.class);
 
         binding = FragmentAuthorsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
 
         // Initialisation du RecyclerView
         RecyclerView mRecyclerView = binding.authorsRecycler;
@@ -32,12 +39,23 @@ public class AuthorFragment extends Fragment{
         // Initialisation de l'adaptateur pour le RecyclerView
 
 
+
+
         // Observer les données dans le ViewModel et mettre à jour l'adaptateur
         dashboardViewModel.getAuthors().observe(getViewLifecycleOwner(), authors -> {
-                    mAdapter = new AuthorAdapter(authors); // Adapter que vous avez créé
-                    mRecyclerView.setAdapter(mAdapter);
+            mAdapter = new AuthorAdapter(authors); // Mettre à jour les données de l'adaptateur
+            mRecyclerView.setAdapter(mAdapter);
         });
-            return root;
+
+        FloatingActionButton fab = root.findViewById(R.id.fabAuthor);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.author_add);
+            }
+        });
+
+        return root;
     }
 
 
@@ -47,6 +65,9 @@ public class AuthorFragment extends Fragment{
         binding = null;
     }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        dashboardViewModel.load_authors();
+    }
 }
