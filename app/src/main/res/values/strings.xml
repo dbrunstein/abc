@@ -2,6 +2,7 @@
     <string name="app_name">BookApp</string>
     <string name="title_home">Book</string>
     <string name="title_dashboard">Author</string>
+    <string name="title_book_details">Book Details</string>
     <string name="title_notifications">Tag</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">No data found</string>

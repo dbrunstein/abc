@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import android.view.View;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,23 +14,24 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bookapp.APIRequest;
-
+import com.example.bookapp.ui.authors.Author;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeViewModel extends ViewModel {
+public class HomeViewModel extends AndroidViewModel {
 
     private final MutableLiveData<List<Book>> books; // faire une class book ou est convertit les
                                                     // livre en objet java
     private APIRequest apiRequest = new APIRequest();
-    public HomeViewModel(@NonNull Application application) throws JSONException {
+
+    public HomeViewModel(Application application) throws JSONException {
+        super(application);
         books = new MutableLiveData<>();
-        //mText.setValue("WELCOME TO THE BOOK ZONE!\n ONLY BOOKS IN ANIME MOLOCH");
-        //books.setValue(new JSONArray("[{\"moloch\":666,}]"));
         RequestQueue queue = Volley.newRequestQueue(application.getApplicationContext());
+        apiRequest = new APIRequest();
         JsonArrayRequest getRequest = apiRequest.getBooks(books);
         queue.add(getRequest);
     }
@@ -36,4 +39,14 @@ public class HomeViewModel extends ViewModel {
     public LiveData<List<Book>> getBooks() {
         return books;
     }
+
+    public Book getBook(int id){
+        for(Book book : books.getValue()){
+            if(book.getId() == id){
+                return book;
+            }
+        }
+        return null;
+    }
+
 }

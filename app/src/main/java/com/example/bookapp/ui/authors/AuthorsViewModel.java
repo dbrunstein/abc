@@ -24,7 +24,7 @@ public class AuthorsViewModel extends AndroidViewModel {
         super(application);
         mText = new MutableLiveData<>();
         RequestQueue queue = Volley.newRequestQueue(application.getApplicationContext());
-        JsonArrayRequest getRequest = apiRequest.get(mText);
+        JsonArrayRequest getRequest = apiRequest.getAuthors(mText);
         queue.add(getRequest);
 
 

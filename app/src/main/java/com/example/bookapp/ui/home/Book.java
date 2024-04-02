@@ -14,9 +14,10 @@ public class Book {
     //private ArrayList<Tag> tags;
     //private ArrayList<Comment> comments;
 
-    public Book(int id, String title){
+    public Book(int id, String title, Author author){
         this.title = title;
         this.id = id;
+        this.author = author;
     }
 
     public int getId() {

@@ -21,13 +21,13 @@ public class APIRequest {
 
     }
 
-    public JsonArrayRequest get(MutableLiveData<List<Author>> res) {
+    public JsonArrayRequest getAuthors(MutableLiveData<List<Author>> res) {
 
         List<Author> myList = new ArrayList<>();
 
 
 
-        String url = "http://192.168.211.224:3000/authors?include=book";
+        String url = "http://192.168.123.224:3000/authors?include=book";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -44,7 +44,14 @@ public class APIRequest {
                                 String lastname = author.getString("lastname");
                                 int id = author.getInt("id");
                                 Author newAuthor = new Author(id, firstname, lastname);
-                                newAuthor.getBooks().add(new Book(author.getJSONArray("books").getJSONObject(i).getInt("id"),author.getJSONArray("books").getJSONObject(i).getString("title")));
+                                //books
+                                JSONArray booksArray = author.getJSONArray("books");
+                                for (int j = 0; j < booksArray.length(); j++) {
+                                    JSONObject bookObj = booksArray.getJSONObject(j);
+                                    int bookId = bookObj.getInt("id");
+                                    String bookTitle = bookObj.getString("title");
+                                    newAuthor.getBooks().add(new Book(bookId, bookTitle, newAuthor));
+                                }
                                 myList.add(newAuthor); // Ajouter le nom de l'auteur à la liste
 
                             } catch (JSONException e) {
@@ -73,7 +80,7 @@ public class APIRequest {
         List<Book> books = new ArrayList<>();
 
 
-        String url = "http://192.168.1.93:3000/authors";
+        String url = "http://192.168.123.224:3000/books?include=author";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -82,19 +89,21 @@ public class APIRequest {
                     public void onResponse(JSONArray response) {
                         // Traitement de la réponse JSON
                         // Par exemple, afficher la réponse dans la console
-                        Log.d("VolleyResponse", response.toString());
+                        Log.d("VolleyResponse book", response.toString()+" "+ response.length());
                         for (int i = 0; i < response.length(); i++) {
                             try {
-                                JSONObject book = response.getJSONObject(i); // Obtenir l'élément JSON à l'index i
+                                JSONObject book = response.getJSONObject(i);
                                 int id = book.getInt("id");
                                 String title = book.getString("title");
-                                books.add(new Book(id,title)); // Ajouter les informations du livre
+                                Author author = new Author(book.getJSONObject("author").getInt("id"), book.getJSONObject("author").getString("firstname"),book.getJSONObject("author").getString("lastname"));
+                                Book newBook = new Book(id, title, author);
+                                books.add(newBook);// Ajouter les informations du livre
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
-
                         res.setValue(books);
+
                         //res.setValue(response.toString());
                     }
                 }, new Response.ErrorListener() {

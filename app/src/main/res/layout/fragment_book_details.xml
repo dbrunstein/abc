@@ -3,7 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".ui.authors.AuthorDetailsFragment">
+             tools:context=".ui.home.BookDetailsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -13,12 +13,10 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/data"
+                android:id="@+id/book_details_txt"
                 android:text="@string/hello_blank_fragment"/>
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/author_details_recycler"/>
+
     </LinearLayout>
+
 
 </FrameLayout>
