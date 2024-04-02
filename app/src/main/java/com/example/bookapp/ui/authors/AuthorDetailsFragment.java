@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.bookapp.R;
 import com.example.bookapp.ui.home.Book;
+import com.example.bookapp.ui.home.BookAdapter;
 import org.json.JSONArray;
 
 import java.util.List;
@@ -50,27 +51,31 @@ public class AuthorDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View rootView = inflater.inflate(R.layout.fragment_author_details, container, false);
+
         AuthorsViewModel viewModel = new ViewModelProvider(this).get(AuthorsViewModel.class);
+
+        RecyclerView mRecyclerView = rootView.findViewById(R.id.author_details_recycler);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
         viewModel.getAuthors().observe(getViewLifecycleOwner(), authors -> {
             //if(savedInstanceState != null){
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("author", Context.MODE_PRIVATE);
                 int id = sharedPreferences.getInt("authorId", 0);
                 Author author = viewModel.getAuthor(id);
-                TextView txt = getView().findViewById(R.id.data);
+                TextView txt = rootView.findViewById(R.id.data);
                 List<Book> books = author.getBooks();
-                txt.setText(author.getFirstname()+" "+author.getLastname());
-                for(Book book : books){
-                    txt.append("\n"+book.getTitle());
+                BookAdapter mAdapter = new BookAdapter(books); // Adapter que vous avez créé
+                mRecyclerView.setAdapter(mAdapter);
+                Log.d("size books", String.valueOf(mAdapter.getItemCount()));
+                txt.setText(author.getFirstname()+" "+author.getLastname()+"\n\nListe des livre :\n\n");
+                if(books.size()==0){
+                    txt.append("Book not found");
                 }
 
-
-           // }
-            //else{
-              //  Log.d("error", "erreur");
-            //}
-
         });
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_author_details, container, false);
+        return rootView;
     }
 }

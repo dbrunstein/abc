@@ -30,24 +30,16 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
-
-        //final TextView textView = binding.textHome;
-        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         RecyclerView bookRecycler = binding.bookRecycler;
         bookRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        Log.d("test", String.valueOf(homeViewModel.getBooks().getValue().size()));
 
         homeViewModel.getBooks().observe(getViewLifecycleOwner(), books ->{
 
-            //RecyclerView bookRecycler = getView().findViewById(R.id.bookRecycler);
-            Log.d("books", homeViewModel.getBooks().getValue().get(0).getTitle());
             if (bookRecycler == null) {
                 Log.d("error", "book recycler null");
             }
             BookAdapter adapter= new BookAdapter(books);
             bookRecycler.setAdapter(adapter);
-            Log.d("size", String.valueOf(adapter.getItemCount()));
         });
         return root;
     }
