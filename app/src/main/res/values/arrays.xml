@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="author_array">
+        <item>Moloch</item>
+        <item>Super Moloch</item>
+        <item>Molochman</item>
+        <item>Spider Moloch</item>
+        <item>Momomoloch</item>
+        <item>Emperor Moloch</item>
+        <item>Giga Moloch</item>
+        <item>Vegeloch</item>
+    </string-array>
+</resources>

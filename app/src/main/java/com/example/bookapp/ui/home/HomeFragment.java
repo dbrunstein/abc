@@ -5,16 +5,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookapp.R;
 import com.example.bookapp.databinding.FragmentHomeBinding;
-import com.example.bookapp.ui.authors.AuthorAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class HomeFragment extends Fragment {
 
@@ -41,6 +43,20 @@ public class HomeFragment extends Fragment {
             BookAdapter adapter= new BookAdapter(books);
             bookRecycler.setAdapter(adapter);
         });
+
+        FloatingActionButton fab = root.findViewById(R.id.fabBook);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Log.d("TAG", "onClick: IL EST VIVANT");
+                Snackbar.make(view, "Pimp my book", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Navigation.findNavController(view).navigate(R.id.book_add);
+
+            }
+        });
+
+
+
         return root;
     }
 
