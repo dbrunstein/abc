@@ -3,7 +3,9 @@ package com.example.bookapp.ui.home;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.bookapp.R;
+import com.example.bookapp.ViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.Console;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,21 +74,34 @@ public class BookAdd extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_book_add, container, false);
-
+        ArrayList<String> tagList = new ArrayList<>();
 
         // *** partie hand spinner ***
-
         Spinner spinner = (Spinner) root.findViewById(R.id.bookAddAuthor);
+
+        ViewModel viewModel = new ViewModelProvider(this).get(ViewModel.class);
+        viewModel.getTags().observe(getViewLifecycleOwner(), tags ->{
+            for(Tag tag:tags){
+                tagList.add(tag.getName());
+            }
+        });
+        Log.d("VIVANT",tagList.toString());
+
+        //ArrayAdapter<String> adapter = null;
         // Create an ArrayAdapter using the string array and a default spinner layout.
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                root.getContext(), R.array.author_array, android.R.layout.simple_spinner_item
-        );
-        
+        ArrayAdapter<String> adapter = new ArrayAdapter(
+                root.getContext(), android.R.layout.simple_spinner_item,tagList);
+/*
+        viewModel.getTags().observe(getViewLifecycleOwner(), tags ->{
+            for(Tag tag:tags){
+                adapter.add(tag.getName());
+            }
+
+        });*/
         // Specify the layout to use when the list of choices appears.
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
-
         // *** partie hand spinner ***
 
         Button addBook = root.findViewById(R.id.buttonBookAdd);
