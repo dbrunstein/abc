@@ -11,26 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.bookapp.R;
+import com.example.bookapp.ViewModel;
 import com.example.bookapp.ui.authors.Author;
-import com.example.bookapp.ui.authors.AuthorsViewModel;
-
-import java.util.List;
 
 
 public class BookDetailsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public BookDetailsFragment() {
-        // Required empty public constructor
-    }
+    public BookDetailsFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,9 +28,9 @@ public class BookDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        ViewModel viewModel = new ViewModelProvider(this).get(ViewModel.class);
         viewModel.getBooks().observe(getViewLifecycleOwner(), books -> {
-            //if(savedInstanceState != null){
+
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("book", Context.MODE_PRIVATE);
             int id = sharedPreferences.getInt("bookId", 0);
             Book book = viewModel.getBook(id);
@@ -50,19 +38,17 @@ public class BookDetailsFragment extends Fragment {
             if(book != null){
                 txt.setText("Book "+book.getTitle());
                 Author author = book.getAuthor();
-                //Log.d("erreur", author.getFirstname());
+                Log.d("author", author.getFirstname()+" "+author.getLastname());
+
                 if(author != null)
                     txt.append("\n"+author.getFirstname()+" "+author.getLastname());
                 else
                     Log.d("erreur", "author not found");
             }
 
-
-
-            // }
-            //else{
-            //  Log.d("error", "erreur");
-            //}
+            else{
+             Log.d("error", "erreur");
+            }
 
         });
 

@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/navigation_home"
-            android:name="com.example.bookapp.ui.home.HomeFragment"
+            android:name="com.example.bookapp.ui.home.BookFragment"
             android:label="@string/title_home"
             tools:layout="@layout/fragment_home">
     <action
@@ -35,11 +35,6 @@
     </fragment>
 
 
-    <fragment
-            android:id="@+id/navigation_notifications"
-            android:name="com.example.bookapp.ui.notifications.NotificationsFragment"
-            android:label="@string/title_notifications"
-            tools:layout="@layout/fragment_notifications"/>
 
     <fragment
             android:id="@+id/book_details"

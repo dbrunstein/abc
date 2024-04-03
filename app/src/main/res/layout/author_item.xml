@@ -7,16 +7,10 @@
     <TextView
             android:text="TextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/firstname" android:layout_weight="1"
+            android:layout_height="wrap_content" android:id="@+id/name" android:layout_weight="1"
 
             />
 
-    <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/lastname" android:layout_weight="1"
-
-            />
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
