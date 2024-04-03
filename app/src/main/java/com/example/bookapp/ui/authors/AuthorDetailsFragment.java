@@ -5,17 +5,24 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.bookapp.APIRequest;
 import com.example.bookapp.R;
 import com.example.bookapp.ui.home.Book;
 import com.example.bookapp.ui.home.BookAdapter;
+import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONArray;
 
 import java.util.List;
@@ -60,11 +67,25 @@ public class AuthorDetailsFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
+
+
         viewModel.getAuthors().observe(getViewLifecycleOwner(), authors -> {
             //if(savedInstanceState != null){
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("author", Context.MODE_PRIVATE);
                 int id = sharedPreferences.getInt("authorId", 0);
                 Author author = viewModel.getAuthor(id);
+            Button delete = rootView.findViewById(R.id.delete_author);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RequestQueue deleteQueue = Volley.newRequestQueue(getContext());
+                    APIRequest apiRequest = new APIRequest();
+                    StringRequest deleteRequest = apiRequest.deleteAuthor(id);
+                    deleteQueue.add(deleteRequest);
+                    Snackbar.make(view, "Author Deleted", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Navigation.findNavController(view).navigate(R.id.navigation_dashboard);
+                }
+            });
                 TextView txt = rootView.findViewById(R.id.data);
                 List<Book> books = author.getBooks();
                 BookAdapter mAdapter = new BookAdapter(books); // Adapter que vous avez créé

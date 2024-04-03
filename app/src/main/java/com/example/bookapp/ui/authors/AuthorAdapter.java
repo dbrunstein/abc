@@ -66,6 +66,10 @@ public class AuthorAdapter extends RecyclerView.Adapter {
         return mData.size();
     }
 
+    public void setData(List<Author> mData){
+        this.mData = mData;
+    }
+
     public void setClickListener(OnItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
     }

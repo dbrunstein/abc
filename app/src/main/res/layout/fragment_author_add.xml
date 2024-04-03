@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".ui.authors.AuthorAdd" android:orientation="vertical">
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:hint="Firstname"
+            android:id="@+id/formFirstname"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:hint="Lastname"
+            android:id="@+id/formLastname" android:minHeight="48dp"/>
+    <Button
+            android:text="Ajouter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/submit_add_author"/>
+
+</LinearLayout>
