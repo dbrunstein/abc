@@ -28,7 +28,7 @@ public class APIRequest {
 
     public APIRequest() {
         this.view = view;
-        this.apiBaseName = "http://192.168.237.224:3000";
+        this.apiBaseName = "http://192.168.3.224:3000";
     }
 
     public JsonArrayRequest getAuthors(MutableLiveData<List<Author>> res) {
