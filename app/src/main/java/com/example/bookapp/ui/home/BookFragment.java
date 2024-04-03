@@ -5,27 +5,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bookapp.R;
+import com.example.bookapp.ViewModel;
 import com.example.bookapp.databinding.FragmentHomeBinding;
-import com.example.bookapp.ui.authors.AuthorAdapter;
 
-public class HomeFragment extends Fragment {
+public class BookFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private ViewModel viewModel;
     // repositery pour les requetes
     // mutable live data propre au livres
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -33,7 +31,7 @@ public class HomeFragment extends Fragment {
         RecyclerView bookRecycler = binding.bookRecycler;
         bookRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        homeViewModel.getBooks().observe(getViewLifecycleOwner(), books ->{
+        viewModel.getBooks().observe(getViewLifecycleOwner(), books ->{
 
             if (bookRecycler == null) {
                 Log.d("error", "book recycler null");
@@ -48,5 +46,11 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.load_books();
     }
 }

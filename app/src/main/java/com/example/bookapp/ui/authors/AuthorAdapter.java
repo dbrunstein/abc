@@ -45,8 +45,7 @@ public class AuthorAdapter extends RecyclerView.Adapter {
         String lastname = mData.get(position).getLastname();
         List<Book> books = mData.get(position).getBooks();
         int id = mData.get(position).getId();
-        ((AuthorViewHolder) holder).getFirstname().setText("Firstname : "+firstname);
-        ((AuthorViewHolder) holder).getLastname().setText("Lastname : "+lastname);
+        ((AuthorViewHolder) holder).getName().setText(firstname+" "+lastname);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

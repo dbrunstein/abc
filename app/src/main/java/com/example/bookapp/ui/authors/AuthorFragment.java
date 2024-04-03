@@ -1,7 +1,6 @@
 package com.example.bookapp.ui.authors;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +10,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.bookapp.APIRequest;
+import com.example.bookapp.ViewModel;
 import com.example.bookapp.R;
 import com.example.bookapp.databinding.FragmentAuthorsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
 
 public class AuthorFragment extends Fragment{
 
     private FragmentAuthorsBinding binding;
     private AuthorAdapter mAdapter;
-    AuthorsViewModel dashboardViewModel;
+    private ViewModel dashboardViewModel;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         dashboardViewModel = new ViewModelProvider(this).get(AuthorsViewModel.class);
+         dashboardViewModel = new ViewModelProvider(this).get(ViewModel.class);
 
         binding = FragmentAuthorsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -35,10 +32,6 @@ public class AuthorFragment extends Fragment{
         // Initialisation du RecyclerView
         RecyclerView mRecyclerView = binding.authorsRecycler;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Initialisation de l'adaptateur pour le RecyclerView
-
-
 
 
         // Observer les données dans le ViewModel et mettre à jour l'adaptateur

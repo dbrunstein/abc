@@ -11,26 +11,22 @@ import org.jetbrains.annotations.NotNull;
 
 public class AuthorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    private TextView firstname;
-    private TextView lastname;
+    private TextView name;
 
     private OnItemClickListener clickListener;
 
     public AuthorViewHolder(@NonNull @NotNull View itemView, OnItemClickListener listener) {
         super(itemView);
-        firstname = itemView.findViewById(R.id.firstname);
-        lastname = itemView.findViewById(R.id.lastname);
+        name = itemView.findViewById(R.id.name);
         this.clickListener = listener;
         itemView.setOnClickListener(this);
     }
 
-    public TextView getFirstname() {
-        return firstname;
+    public TextView getName() {
+        return name;
     }
 
-    public TextView getLastname() {
-        return lastname;
-    }
+
 
     @Override
     public void onClick(View view) {
