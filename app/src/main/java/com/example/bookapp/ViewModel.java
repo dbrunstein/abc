@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bookapp.ui.authors.Author;
 import com.example.bookapp.ui.home.Book;
+import com.example.bookapp.ui.home.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class ViewModel extends AndroidViewModel {
     private final MutableLiveData<List<Author>> authors;
     private final MutableLiveData<List<Book>> books;
 
+    private final MutableLiveData<List<Tag>> tags;
     private APIRequest apiRequest = new APIRequest();
     private RequestQueue queue;
 
@@ -28,9 +30,11 @@ public class ViewModel extends AndroidViewModel {
         super(application);
         books = new MutableLiveData<>();
         authors = new MutableLiveData<>();
+        tags = new MutableLiveData<>();
         queue = Volley.newRequestQueue(application.getApplicationContext());
         this.load_authors();
         this.load_books();
+        this.load_tags();
     }
 
     public LiveData<List<Author>> getAuthors() {
@@ -49,7 +53,9 @@ public class ViewModel extends AndroidViewModel {
     public LiveData<List<Book>> getBooks() {
         return books;
     }
-
+    public LiveData<List<Tag>> getTags() {
+        return tags;
+    }
     public Book getBook(int id){
         for(Book book : books.getValue()){
             if(book.getId() == id){
@@ -67,6 +73,9 @@ public class ViewModel extends AndroidViewModel {
         JsonArrayRequest getBookRequest = apiRequest.getBooks(books);
         queue.add(getBookRequest);
     }
-
+    public void load_tags(){
+        JsonArrayRequest getTagsRequest = apiRequest.getTags(tags);
+        queue.add(getTagsRequest);
+    }
 
 }
