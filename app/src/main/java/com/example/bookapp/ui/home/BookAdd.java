@@ -12,10 +12,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.bookapp.APIRequest;
 import com.example.bookapp.R;
+import com.example.bookapp.ViewModel;
+import com.example.bookapp.ui.authors.Author;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,19 +79,34 @@ public class BookAdd extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_book_add, container, false);
 
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        APIRequest apiRequest = new APIRequest();
+        ViewModel viewModel = new ViewModelProvider(this).get(ViewModel.class);
+        viewModel.getAuthors().observe(getViewLifecycleOwner(), authors -> {
+            ArrayAdapter<CharSequence> author_adapter = ArrayAdapter.createFromResource(
+                    root.getContext(), R.array.author_array, android.R.layout.simple_spinner_item
+            );
+        });
+
+
 
         // *** partie hand spinner ***
 
         Spinner spinner = (Spinner) root.findViewById(R.id.bookAddAuthor);
+        Spinner authorSpinner = (Spinner) root.findViewById(R.id.select_author);
         // Create an ArrayAdapter using the string array and a default spinner layout.
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                root.getContext(), R.array.author_array, android.R.layout.simple_spinner_item
+        ArrayAdapter<CharSequence> tags_adapter = ArrayAdapter.createFromResource(
+                root.getContext(), R.array.tags_array, android.R.layout.simple_spinner_item
         );
+
+
         
         // Specify the layout to use when the list of choices appears.
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tags_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        author_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner.
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(tags_adapter);
+        authorSpinner.setAdapter(author_adapter);
 
         // *** partie hand spinner ***
 
@@ -92,9 +116,11 @@ public class BookAdd extends Fragment {
             public void onClick(View v) {
 
                 String title = ((EditText)root.findViewById(R.id.bookAddTitle)).getText().toString();
+                String author = ((Spinner)root.findViewById(R.id.select_author)).getSelectedItem().toString();
+                String tag = ((Spinner) root.findViewById(R.id.bookAddAuthor)).getSelectedItem().toString();
 
 
-                Snackbar.make(root, title, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(root, title+" with author "+author+ " with tag "+tag, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 

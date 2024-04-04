@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bookapp.R;
 import com.example.bookapp.ViewModel;
 import com.example.bookapp.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,13 +48,11 @@ public class BookFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Log.d("TAG", "onClick: IL EST VIVANT");
-                Snackbar.make(view, "Pimp my book", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(view, "Pimp my book", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                 Navigation.findNavController(view).navigate(R.id.book_add);
 
             }
         });
-
-
 
         return root;
     }
@@ -67,6 +66,7 @@ public class BookFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("onResume", "onResume: changed");
         viewModel.load_books();
     }
 }

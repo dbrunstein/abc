@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.service.controls.ControlsProviderService.TAG;
+
 public class APIRequest {
 
     String apiBaseName = "";
@@ -28,7 +30,7 @@ public class APIRequest {
 
     public APIRequest() {
         this.view = view;
-        this.apiBaseName = "http://192.168.3.224:3000";
+        this.apiBaseName = "http://192.168.26.224:3000";
     }
 
     public JsonArrayRequest getAuthors(MutableLiveData<List<Author>> res) {
@@ -129,7 +131,7 @@ public class APIRequest {
         // Ajouter la requête à la file de requêtes
     }
 
-    public StringRequest addAuthor(String firstname, String lastname) {
+    public JsonObjectRequest addAuthor(String firstname, String lastname) {
         String url = apiBaseName + "/authors";
 
         JSONObject postData = new JSONObject();
@@ -141,12 +143,13 @@ public class APIRequest {
             e.printStackTrace();
         }
 
-        StringRequest request = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,postData,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         // Traitement de la réponse
                         // Par exemple, afficher la réponse dans la console
+                        Log.d("Add", "onResponse: "+response.toString());
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -154,19 +157,39 @@ public class APIRequest {
                 // Gérer les erreurs de requête
                 Log.e("Erreur de requête", error.toString());
             }
-        }) {
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                return postData.toString().getBytes();
-            }
+        });
 
+        // Ajouter la requête à la file de requêtes
+        return request;
+    }
+
+    public JsonObjectRequest addBook(int authorId, String title, int date) {
+        String url = apiBaseName + "/authors/"+authorId+"/books";
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("title", title);
+            postData.put("date", date);
+            // Ajouter d'autres paramètres au besoin
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,postData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Traitement de la réponse
+                        // Par exemple, afficher la réponse dans la console
+                        Log.d("Add Book", "onResponse: "+response.toString());
+                    }
+                }, new Response.ErrorListener() {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                return headers;
+            public void onErrorResponse(VolleyError error) {
+                // Gérer les erreurs de requête
+                Log.e("Erreur de requête", error.toString());
             }
-        };
+        });
 
         // Ajouter la requête à la file de requêtes
         return request;
@@ -179,8 +202,27 @@ public class APIRequest {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Traitement de la réponse
-                        // Par exemple, afficher la réponse dans la console
+                        //Log.d("Réponse de l'API", response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Gérer les erreurs de requête
+                Log.e("Erreur de requête", error.toString());
+            }
+        });
+
+        // Ajouter la requête à la file de requêtes
+        return request;
+    }
+
+    public StringRequest deleteBook(int id) {
+        String url = apiBaseName + "/books/"+id;
+
+        StringRequest request = new StringRequest(Request.Method.DELETE, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
                         //Log.d("Réponse de l'API", response);
                     }
                 }, new Response.ErrorListener() {
