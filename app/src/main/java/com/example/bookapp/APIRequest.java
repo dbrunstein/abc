@@ -12,6 +12,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.bookapp.ui.authors.Author;
 import com.example.bookapp.ui.home.Book;
+import com.example.bookapp.ui.home.Tag;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,8 +63,9 @@ public class APIRequest {
                                 for (int j = 0; j < booksArray.length(); j++) {
                                     JSONObject bookObj = booksArray.getJSONObject(j);
                                     int bookId = bookObj.getInt("id");
+                                    int date = bookObj.getInt("date");
                                     String bookTitle = bookObj.getString("title");
-                                    newAuthor.getBooks().add(new Book(bookId, bookTitle, newAuthor));
+                                    newAuthor.getBooks().add(new Book(bookId, bookTitle, newAuthor, date));
                                 }
                                 myList.add(newAuthor); // Ajouter le nom de l'auteur à la liste
 
@@ -107,8 +110,9 @@ public class APIRequest {
                                 JSONObject book = response.getJSONObject(i);
                                 int id = book.getInt("id");
                                 String title = book.getString("title");
+                                int date = book.getInt("date");
                                 Author author = new Author(book.getJSONObject("author").getInt("id"), book.getJSONObject("author").getString("firstname"),book.getJSONObject("author").getString("lastname"));
-                                Book newBook = new Book(id, title, author);
+                                Book newBook = new Book(id, title, author, date);
                                 books.add(newBook);// Ajouter les informations du livre
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -130,7 +134,45 @@ public class APIRequest {
 
         // Ajouter la requête à la file de requêtes
     }
+    public JsonArrayRequest getTags(MutableLiveData<List<Tag>> res) {
 
+        List<Tag> tags = new ArrayList<>();
+
+        String url = apiBaseName+"/tags";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // Traitement de la réponse JSON
+                        // Par exemple, afficher la réponse dans la console
+                        Log.d("VolleyResponse book", response.toString()+" "+ response.length());
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject tagList = response.getJSONObject(i);
+
+                                Tag newTag = new Tag(tagList.getString("name"));
+                                Log.d("CCCCCCCCCCCCCCCCCCCCCC",newTag.getName() + "baba");
+                                tags.add(newTag);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        res.setValue(tags);
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Gérer les erreurs de requête
+                        Log.e("VolleyError", "Erreur lors de la requête", error);
+                    }
+                });
+
+        return jsonArrayRequest;
+    }
     public JsonObjectRequest addAuthor(String firstname, String lastname) {
         String url = apiBaseName + "/authors";
 

@@ -3,6 +3,9 @@ package com.example.bookapp.ui.home;
 public class Tag {
     private String name;
     public Tag(String name){
-        name = name;
+        this.name = name;
+    }
+    public String getName(){
+        return name;
     }
 }

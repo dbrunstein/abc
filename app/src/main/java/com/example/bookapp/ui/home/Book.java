@@ -9,19 +9,26 @@ public class Book {
     private int id;
     private String title;
     private Author author;
+
+    private int  date;
     //private String description;
     //private double rating;
     //private ArrayList<Tag> tags;
     //private ArrayList<Comment> comments;
 
-    public Book(int id, String title, Author author){
+    public Book(int id, String title, Author author, int date){
         this.title = title;
         this.id = id;
         this.author = author;
+        this.date = date;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getDate() {
+        return date;
     }
 
     public String getTitle() {
