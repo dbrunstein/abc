@@ -10,6 +10,7 @@ public class Book {
     private String title;
     private Author author;
     private int date;
+    private ArrayList<Tag> tags;
     //private String description;
     //private double rating;
     //private ArrayList<Tag> tags;
@@ -20,6 +21,7 @@ public class Book {
         this.id = id;
         this.author = author;
         this.date = date;
+        this.tags = new ArrayList<>();
     }
 
     public int getId() {
@@ -35,6 +37,12 @@ public class Book {
     }
     public int getDate() {
         return date;
+    }
+    public ArrayList<Tag> getTags(){
+        return tags;
+    }
+    public void setTags(Tag tag){
+        tags.add(tag);
     }
 
     public void setAuthor(Author auth){

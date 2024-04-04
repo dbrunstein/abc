@@ -121,9 +121,9 @@ public class BookAdd extends Fragment {
         Log.d("VIVANT",tagList.toString());
         // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<String> adapter = new ArrayAdapter(
-                root.getContext(), android.R.layout.simple_spinner_item,tagList);
+                root.getContext(), android.R.layout.select_dialog_multichoice,tagListUser);
         ArrayAdapter<String> authorAdapter = new ArrayAdapter(
-                root.getContext(), android.R.layout.simple_spinner_item,authorList);
+                root.getContext(), android.R.layout.select_dialog_item,authorListUser);
         // Specify the layout to use when the list of choices appears.
         //author_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner.
@@ -143,7 +143,7 @@ public class BookAdd extends Fragment {
                 String author = ((Spinner)root.findViewById(R.id.select_author)).getSelectedItem().toString();
                 String tag = ((Spinner) root.findViewById(R.id.bookAddAuthor)).getSelectedItem().toString();
 //                Snackbar.make(root, title+" with author "+author+ " with tag "+tag, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                apiRequest.addBook();
+                //apiRequest.addBook();
             }
         });
 

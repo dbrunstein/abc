@@ -21,6 +21,9 @@ import com.example.bookapp.ViewModel;
 import com.example.bookapp.ui.authors.Author;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 
 public class BookDetailsFragment extends Fragment {
 
@@ -44,6 +47,7 @@ public class BookDetailsFragment extends Fragment {
             TextView titleView = getView().findViewById(R.id.bookTitle);
             TextView dateView = getView().findViewById(R.id.bookDate);
             TextView authorView = getView().findViewById(R.id.bookAuthor);
+            TextView tagView = getView().findViewById(R.id.bookTags);
             Button delete_book = getView().findViewById(R.id.delete_book);
             delete_book.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -57,11 +61,18 @@ public class BookDetailsFragment extends Fragment {
                 }
             });
             if(book != null){
-                titleView.setText("Book "+book.getTitle());
-                dateView.setText("Release : " + book.getDate());
+                titleView.setText("Title : "+book.getTitle());
+                dateView.setText("Release Year : " + book.getDate());
 
                 Author author = book.getAuthor();
                 Log.d("author", author.getFirstname()+" "+author.getLastname());
+                StringBuilder allTags = new StringBuilder();
+                for(Tag tag:book.getTags()){
+                    allTags.append(",").append(tag.getName());
+                }
+                tagView.setText(allTags.toString());
+
+                dateView.setText("Release Year : " + book.getDate());
 
                 if(author != null)
                     authorView.append("\n"+author.getFirstname()+" "+author.getLastname());
