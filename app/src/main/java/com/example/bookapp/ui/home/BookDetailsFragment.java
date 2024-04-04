@@ -34,14 +34,18 @@ public class BookDetailsFragment extends Fragment {
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("book", Context.MODE_PRIVATE);
             int id = sharedPreferences.getInt("bookId", 0);
             Book book = viewModel.getBook(id);
-            TextView txt = getView().findViewById(R.id.book_details_txt);
+            TextView titleView = getView().findViewById(R.id.bookTitle);
+            TextView dateView = getView().findViewById(R.id.bookDate);
+            TextView authorView = getView().findViewById(R.id.bookAuthor);
             if(book != null){
-                txt.setText("Book "+book.getTitle());
+                titleView.setText("Book "+book.getTitle());
+                dateView.setText("Release : " + book.getDate());
+
                 Author author = book.getAuthor();
                 Log.d("author", author.getFirstname()+" "+author.getLastname());
 
                 if(author != null)
-                    txt.append("\n"+author.getFirstname()+" "+author.getLastname());
+                    authorView.append("\n"+author.getFirstname()+" "+author.getLastname());
                 else
                     Log.d("erreur", "author not found");
             }

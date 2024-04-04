@@ -30,7 +30,7 @@ public class APIRequest {
 
     public APIRequest() {
         this.view = view;
-        this.apiBaseName = "http://192.168.3.224:3000";
+        this.apiBaseName = "http://192.168.26.224:3000";
     }
 
     public JsonArrayRequest getAuthors(MutableLiveData<List<Author>> res) {
@@ -62,7 +62,8 @@ public class APIRequest {
                                     JSONObject bookObj = booksArray.getJSONObject(j);
                                     int bookId = bookObj.getInt("id");
                                     String bookTitle = bookObj.getString("title");
-                                    newAuthor.getBooks().add(new Book(bookId, bookTitle, newAuthor));
+                                    int date = bookObj.getInt("date");
+                                    newAuthor.getBooks().add(new Book(bookId, bookTitle, newAuthor,date));
                                 }
                                 myList.add(newAuthor); // Ajouter le nom de l'auteur à la liste
 
@@ -108,7 +109,8 @@ public class APIRequest {
                                 int id = book.getInt("id");
                                 String title = book.getString("title");
                                 Author author = new Author(book.getJSONObject("author").getInt("id"), book.getJSONObject("author").getString("firstname"),book.getJSONObject("author").getString("lastname"));
-                                Book newBook = new Book(id, title, author);
+                                int date = book.getInt("date");
+                                Book newBook = new Book(id, title, author,date);
                                 books.add(newBook);// Ajouter les informations du livre
                             } catch (JSONException e) {
                                 e.printStackTrace();
