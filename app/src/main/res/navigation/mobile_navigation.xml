@@ -41,7 +41,11 @@
             android:name="com.example.bookapp.ui.home.BookDetailsFragment"
             android:label="@string/title_book_details"
             tools:layout="@layout/fragment_home"
-    />
+    >
+        <action
+                android:id="@+id/action_return_books"
+                app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
         android:id="@+id/book_add"
         android:name="com.example.bookapp.ui.home.BookAdd"
