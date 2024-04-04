@@ -14,12 +14,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.bookapp.APIRequest;
 import com.example.bookapp.R;
 import com.example.bookapp.ViewModel;
+import com.example.bookapp.ui.authors.Author;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collection;
 
 /**
@@ -74,15 +81,41 @@ public class BookAdd extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_book_add, container, false);
-        ArrayList<String> tagList = new ArrayList<>();
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        APIRequest apiRequest = new APIRequest();
+        //ViewModel viewModel = new ViewModelProvider(this).get(ViewModel.class);
+        /*viewModel.getAuthors().observe(getViewLifecycleOwner(), authors -> {
+            ArrayAdapter<CharSequence> author_adapter = ArrayAdapter.createFromResource(
+                    root.getContext(), R.array.author_array, android.R.layout.simple_spinner_item
+            );
+        });*/
+
+        ArrayList<String> tagListUser = new ArrayList<>();
+        ArrayList<String> authorListUser = new ArrayList<>();
+        ArrayList<Tag> tagList = new ArrayList<>();
+        ArrayList<Author> authorList = new ArrayList<>();
+
 
         // *** partie hand spinner ***
         Spinner spinner = (Spinner) root.findViewById(R.id.bookAddAuthor);
+        Spinner authorSpinner = (Spinner) root.findViewById(R.id.select_author);
+        // Create an ArrayAdapter using the string array and a default spinner layout.
+
 
         ViewModel viewModel = new ViewModelProvider(this).get(ViewModel.class);
         viewModel.getTags().observe(getViewLifecycleOwner(), tags ->{
             for(Tag tag:tags){
-                tagList.add(tag.getName());
+                tagList.add(tag);
+                tagListUser.add(tag.getName());
+            }
+        });
+
+        viewModel.getAuthors().observe(getViewLifecycleOwner(), authors ->{
+            Log.d("size", String.valueOf(authors.size()));
+            for(Author author:authors){
+                authorList.add(author);
+                authorListUser.add(author.getFirstname()+" "+author.getLastname());
             }
         });
         Log.d("VIVANT",tagList.toString());
@@ -91,17 +124,17 @@ public class BookAdd extends Fragment {
         // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<String> adapter = new ArrayAdapter(
                 root.getContext(), android.R.layout.simple_spinner_item,tagList);
-/*
-        viewModel.getTags().observe(getViewLifecycleOwner(), tags ->{
-            for(Tag tag:tags){
-                adapter.add(tag.getName());
-            }
+        ArrayAdapter<String> authorAdapter = new ArrayAdapter(
+                root.getContext(), android.R.layout.simple_spinner_item,authorList);
 
-        });*/
         // Specify the layout to use when the list of choices appears.
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //author_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner.
+
+        //authorSpinner.setAdapter(author_adapter);
+
         spinner.setAdapter(adapter);
+        authorSpinner.setAdapter(authorAdapter);
         // *** partie hand spinner ***
 
         Button addBook = root.findViewById(R.id.buttonBookAdd);
@@ -110,9 +143,10 @@ public class BookAdd extends Fragment {
             public void onClick(View v) {
 
                 String title = ((EditText)root.findViewById(R.id.bookAddTitle)).getText().toString();
-
-
-                Snackbar.make(root, title, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                String author = ((Spinner)root.findViewById(R.id.select_author)).getSelectedItem().toString();
+                String tag = ((Spinner) root.findViewById(R.id.bookAddAuthor)).getSelectedItem().toString();
+//                Snackbar.make(root, title+" with author "+author+ " with tag "+tag, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                apiRequest.addBook()
             }
         });
 

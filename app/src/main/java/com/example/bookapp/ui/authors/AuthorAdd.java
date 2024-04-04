@@ -53,7 +53,7 @@ public class AuthorAdd extends Fragment {
                 String lastname = ((EditText) root.findViewById(R.id.formLastname)).getText().toString();
 
                 // Effectuer la requête pour ajouter un nouvel auteur
-                StringRequest addRequest = apiRequest.addAuthor(firstname, lastname);
+                JsonObjectRequest addRequest = apiRequest.addAuthor(firstname, lastname);
                 addQueue.add(addRequest);
 
                 // Afficher un message de succès

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="author_array">
+    <string-array name="tags_array">
         <item>Moloch</item>
         <item>Super Moloch</item>
         <item>Molochman</item>
@@ -9,5 +9,10 @@
         <item>Emperor Moloch</item>
         <item>Giga Moloch</item>
         <item>Vegeloch</item>
+    </string-array>
+
+    <string-array name="author_array">
+        <item>Un auteur</item>
+        <item>Un autre auteur</item>
     </string-array>
 </resources>
