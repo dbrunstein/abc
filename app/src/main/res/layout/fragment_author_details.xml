@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <Button
-                android:text="Supprimer"
+                android:text="@string/delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/delete_author"/>
         <TextView

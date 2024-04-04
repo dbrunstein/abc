@@ -1,6 +1,7 @@
 package com.example.bookapp.ui.authors;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,5 +63,6 @@ public class AuthorFragment extends Fragment{
     public void onResume() {
         super.onResume();
         dashboardViewModel.load_authors();
+        Log.d("change", "onResume");
     }
 }

@@ -52,9 +52,12 @@
         android:label="@string/title_book_add"
         tools:layout="@layout/fragment_home"
         >
-    <action
-        android:id="@+id/action_book_add"
-        app:destination="@id/book_add" />
+        <action
+            android:id="@+id/action_book_add"
+            app:destination="@id/book_add" />
+        <action
+                android:id="@+id/action_return_book_list"
+                app:destination="@id/navigation_home" />
     </fragment>
     <fragment
             android:id="@+id/author_details"
@@ -71,11 +74,10 @@
             android:id="@+id/author_add"
             android:name="com.example.bookapp.ui.authors.AuthorAdd"
             android:label="Author Add"
-            tools:layout="@layout/fragment_home"
-    >
-    <action
-            android:id="@+id/action_return_home"
-            app:destination="@id/navigation_dashboard" />
+            tools:layout="@layout/fragment_home">
+        <action
+                android:id="@+id/action_return_home"
+                app:destination="@id/navigation_dashboard" />
     </fragment>
 
 </navigation>

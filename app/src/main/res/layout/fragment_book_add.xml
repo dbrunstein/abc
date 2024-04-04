@@ -21,17 +21,12 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:text="1984" />
-
-    <Spinner
-        android:id="@+id/bookAddAuthor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            android:text="1984" android:minHeight="48dp"/>
 
     <Spinner
             android:id="@+id/select_author"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" android:minHeight="48dp"/>
 
     <Button
         android:id="@+id/buttonBookAdd"

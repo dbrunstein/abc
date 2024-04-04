@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bookapp.APIRequest;
@@ -24,8 +25,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class BookDetailsFragment extends Fragment {
 
-
-    public BookDetailsFragment() {}
+    APIRequest apiRequest;
+    RequestQueue RequestQueue;
+    public BookDetailsFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,45 +36,60 @@ public class BookDetailsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_book_details, container, false);
+        this.apiRequest = new APIRequest();
+        this.RequestQueue = Volley.newRequestQueue(getContext());
         ViewModel viewModel = new ViewModelProvider(this).get(ViewModel.class);
-        viewModel.getBooks().observe(getViewLifecycleOwner(), books -> {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("book", Context.MODE_PRIVATE);
+        int id = sharedPreferences.getInt("bookId", 0);
+        TextView titleView = root.findViewById(R.id.bookTitle);
+        TextView dateView = root.findViewById(R.id.bookDate);
+        TextView authorView = root.findViewById(R.id.bookAuthor);
+        TextView tagView = root.findViewById(R.id.bookTags);
+        Button delete_book = root.findViewById(R.id.delete_book);
 
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("book", Context.MODE_PRIVATE);
-            int id = sharedPreferences.getInt("bookId", 0);
+        viewModel.getBooks().observe(getViewLifecycleOwner(), books -> {
             Book book = viewModel.getBook(id);
-            TextView txt = getView().findViewById(R.id.book_details_txt);
-            Button delete_book = getView().findViewById(R.id.delete_book);
+            viewModel.fetchBooksWithTags(book);
+            if (book != null) {
+
+                titleView.setText("Title : " + book.getTitle());
+                dateView.setText("Release Year : " + book.getDate());
+
+                Author author = book.getAuthor();
+                StringBuilder allTags = new StringBuilder();
+
+
+                for (Tag tag : book.getTags()) {
+                    allTags.append(",").append(tag.getName());
+                }
+                tagView.setText(allTags.toString());
+
+
+                dateView.setText("Release Year : " + book.getDate());
+
+                if (author != null)
+                    authorView.setText("Author : " + author.getFirstname() + " " + author.getLastname());
+                else
+                    Log.d("erreur", "author not found");
+                }
+
+        });
             delete_book.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    RequestQueue deleteQueue = Volley.newRequestQueue(getContext());
-                    APIRequest apiRequest = new APIRequest();
                     StringRequest deleteRequest = apiRequest.deleteBook(id);
-                    deleteQueue.add(deleteRequest);
+                    RequestQueue.add(deleteRequest);
                     Snackbar.make(view, "Book Deleted", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                     Navigation.findNavController(view).navigate(R.id.navigation_home);
                 }
             });
-            if(book != null){
-                txt.setText("Book "+book.getTitle());
-                Author author = book.getAuthor();
-                Log.d("author", author.getFirstname()+" "+author.getLastname());
 
-                if(author != null)
-                    txt.append("\n"+author.getFirstname()+" "+author.getLastname());
-                else
-                    Log.d("erreur", "author not found");
-            }
-
-            else{
-             Log.d("error", "erreur");
-            }
-
-        });
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_details, container, false);
+        return root;
     }
+
+
 }
