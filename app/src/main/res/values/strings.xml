@@ -5,6 +5,8 @@
     <string name="title_book_details">Book Details</string>
     <string name="title_notifications">Tag</string>
     <string name="title_book_add">Add a book</string>
+    <string name="delete">Supprimer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">No data found</string>
+    <string name="authorSpinner">Select an author</string>
 </resources>

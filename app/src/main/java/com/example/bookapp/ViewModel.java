@@ -67,6 +67,7 @@ public class ViewModel extends AndroidViewModel {
 
     public void load_authors(){
         JsonArrayRequest getRequest = apiRequest.getAuthors(authors);
+        Log.d("molochus", "load_authors: "+authors.getValue());
         queue.add(getRequest);
     }
     public void load_books(){
@@ -76,6 +77,14 @@ public class ViewModel extends AndroidViewModel {
     public void load_tags(){
         JsonArrayRequest getTagsRequest = apiRequest.getTags(tags);
         queue.add(getTagsRequest);
+    }
+
+    public void fetchBooksWithTags(Book book) {
+        JsonArrayRequest jsonArrayRequest = apiRequest.getTagsofBook(books, book);
+        queue.add(jsonArrayRequest);
+        // Supposons que vous ayez un mécanisme pour gérer la réponse de cette requête et mettre à jour les données
+
+
     }
 
 }
