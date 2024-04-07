@@ -1,4 +1,4 @@
-package com.example.bookapp.ui.home;
+package com.example.bookapp.ui.books;
 
 import android.os.Bundle;
 

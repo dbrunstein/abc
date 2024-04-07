@@ -21,7 +21,7 @@ import com.example.bookapp.ViewModel;
 import com.example.bookapp.R;
 import com.example.bookapp.model.Author;
 import com.example.bookapp.model.Book;
-import com.example.bookapp.ui.home.BookAdapter;
+import com.example.bookapp.ui.books.BookAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;

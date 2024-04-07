@@ -1,4 +1,4 @@
-package com.example.bookapp.ui.home;
+package com.example.bookapp.ui.books;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +16,7 @@ import com.example.bookapp.R;
 import com.example.bookapp.ViewModel;
 import com.example.bookapp.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
 public class BookFragment extends Fragment {
 
     private FragmentHomeBinding binding;
