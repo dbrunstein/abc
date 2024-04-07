@@ -14,7 +14,7 @@ Utilisation d'un unique ```ViewModel``` pour les ```Book``` et ```Author```
 
 ### Recycler view
 
-Utilisation de recycler view pour l'affichage des titres ```Book```, nom et prénom des ```Author``` ainsi que pour l'affichage des ```Comment``` (```Rating``` inclu)
+Utilisation de recycler view pour l'affichage des titres des ```Book```, nom et prénom des ```Author``` ainsi que pour l'affichage des ```Comment``` (```Rating``` inclus)
 
 ### Model
 
@@ -22,7 +22,7 @@ Utilisation d'objet ```Author```, ```Book```, ```Comment``` et ```Tag```
 
 ### Repository
 
-Utilisation d'un repository ```APIRequest``` effectruant les requêtes volley pour l'ensemble de l'application
+Utilisation d'un repository ```APIRequest``` effectuant les requêtes volley pour l'ensemble de l'application
 
 
 ### Lien vers l'api
