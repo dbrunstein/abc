@@ -5,9 +5,19 @@ Projet ABC - RAPPORT
 Architecture
 --------------------
 
-* ee
 
-* ee
+
+
+### View Model
+
+Utilisation d'un unique ```ViewModel``` pour les ```Book``` et ```Author```
+
+### Recycler view
+
+Utilisation de recycler view pour l'affichage des titres ```Book```, nom et prénom des ```Author``` ainsi que pour l'affichage des ```Comment``` (```Rating``` inclu)
+
+### Model
+Implémentation d'objet ```Author```, ```Book```, ```Comment``` et ```Tag```
 
 
 
@@ -40,10 +50,10 @@ Fonctionnalités
 
 ### Non Implémenté
 
-* Converture des livres
-* L'ajout de commentaire (avec note)
-* Ajout de tag à un livre
-* Partie utilisateur couplé avec les commentaires
+* Converture des livres (Bonus)
+* L'ajout de commentaire (avec note) (Bonus Hors Bonus)
+* Ajout de tag à un livre (Bonus Hors Bonus)
+* Partie utilisateur couplé avec les commentaires (Bonus Hors Bonus)
 
 
 
