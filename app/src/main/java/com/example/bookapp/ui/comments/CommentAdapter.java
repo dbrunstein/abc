@@ -38,18 +38,9 @@ public class CommentAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ((CommentViewHolder) viewHolder).getUsername().setText(comments.get(i).getUserName());
         ((CommentViewHolder) viewHolder).getContent().setText(comments.get(i).getContent());
-        /*
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_book_details);
-                SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("book", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("bookId", id);
-                editor.apply();
+        ((CommentViewHolder) viewHolder).getRatingBar().setRating((float) comments.get(i).getRating());
 
-            }
-        });*/
+
     }
 
     @Override

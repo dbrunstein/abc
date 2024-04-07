@@ -89,6 +89,10 @@ public class ViewModel extends AndroidViewModel {
         JsonArrayRequest getBookIdCommentsRequest = apiRequest.getCommentsOfBook(book);
         queue.add(getBookIdCommentsRequest);
     }
+    public void fetchRatingWithBookId(Book book){
+        JsonArrayRequest getBookIdRatingRequest = apiRequest.getRatingOfBook(book);
+        queue.add(getBookIdRatingRequest);
+    }
 
     public void fetchBooksWithTags(Book book) {
         JsonArrayRequest jsonArrayRequest = apiRequest.getTagsofBook(books, book);

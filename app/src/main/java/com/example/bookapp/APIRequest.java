@@ -290,15 +290,12 @@ public class APIRequest {
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject commentList = response.getJSONObject(i);
-
-                                //Tag newTag = new Tag(commentList.getInt("id"), commentList.getString("name"));
-                                //Log.d("tags",newTag.getName() );
-
                                 Comment newComment = new Comment(commentList.getInt("id"),
                                         commentList.getString("content"),
                                         //LocalDateTime.parse(commentList.getString("createdAt")),
                                         //LocalDateTime.parse(commentList.getString("updatedAt")),
                                         commentList.getString("username"));
+                                        //commentList.getDouble("rating"));
                                 tempListComment.add(newComment);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -319,7 +316,44 @@ public class APIRequest {
 
         return jsonArrayRequest;
     }
+    public JsonArrayRequest getRatingOfBook(Book book) {
 
+        String url = apiBaseName+"/books/"+book.getId()+"/rating";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // Traitement de la réponse JSON
+                        // Par exemple, afficher la réponse dans la console
+                        double sumRating = 0;
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject rating = response.getJSONObject(i);
+                                sumRating += rating.getInt("value");
+                                for(int y=0;y<book.getComments().size();y++){
+                                    if(book.getComments().get(y).getUserName().equals(rating.getString("username"))){
+                                        book.getComments().get(y).setRating(rating.getInt("value"));
+                                        break;
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        book.setRating(sumRating);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Gérer les erreurs de requête
+                        Log.e("VolleyError", "Erreur lors de la requête", error);
+                    }
+                });
+
+        return jsonArrayRequest;
+    }
 
     public JsonObjectRequest addAuthor(String firstname, String lastname) {
         String url = apiBaseName + "/authors";

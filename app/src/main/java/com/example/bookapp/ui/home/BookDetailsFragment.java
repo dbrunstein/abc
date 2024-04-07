@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -52,7 +53,7 @@ public class BookDetailsFragment extends Fragment {
         TextView authorView = root.findViewById(R.id.bookAuthor);
         TextView tagView = root.findViewById(R.id.bookTags);
         Button delete_book = root.findViewById(R.id.delete_book);
-
+        RatingBar ratingBar = root.findViewById(R.id.ratingBarMean);
         RecyclerView mRecyclerView = root.findViewById(R.id.commentRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -60,10 +61,12 @@ public class BookDetailsFragment extends Fragment {
             Book book = viewModel.getBook(id);
             viewModel.fetchBooksWithTags(book);
             viewModel.fetchCommentsWithBookId(book);
+            viewModel.fetchRatingWithBookId(book);
             if (book != null) {
 
                 titleView.setText("Title : " + book.getTitle());
                 dateView.setText("Release Year : " + book.getDate());
+                ratingBar.setRating((float)book.getRating());
 
                 Author author = book.getAuthor();
                 StringBuilder allTags = new StringBuilder();

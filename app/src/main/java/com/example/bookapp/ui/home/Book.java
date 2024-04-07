@@ -73,7 +73,6 @@ public class Book {
     public double getRating() {
         return rating;
     }
-
     public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
     }
