@@ -17,7 +17,13 @@ Utilisation d'un unique ```ViewModel``` pour les ```Book``` et ```Author```
 Utilisation de recycler view pour l'affichage des titres ```Book```, nom et prénom des ```Author``` ainsi que pour l'affichage des ```Comment``` (```Rating``` inclu)
 
 ### Model
-Implémentation d'objet ```Author```, ```Book```, ```Comment``` et ```Tag```
+
+Utilisation d'objet ```Author```, ```Book```, ```Comment``` et ```Tag```
+
+### Repository
+
+Utilisation d'un repository ```APIRequest``` effectruant les requêtes volley pour l'ensemble de l'application
+
 
 ### Lien vers l'api
 Afin de faire fonctionner l'application, il est impératif de changer le lien
