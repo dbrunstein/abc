@@ -342,6 +342,7 @@ public class APIRequest {
                                 e.printStackTrace();
                             }
                         }
+                        Log.d("RATINGGGGGGGGGGG", "avg Rating : "+sumRating);
                         book.setRating(sumRating);
                     }
                 }, new Response.ErrorListener() {
