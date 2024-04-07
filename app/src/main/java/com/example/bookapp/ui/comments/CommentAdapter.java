@@ -1,19 +1,15 @@
 package com.example.bookapp.ui.comments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookapp.R;
+import com.example.bookapp.model.Comment;
 import com.example.bookapp.ui.authors.OnItemClickListener;
-import com.example.bookapp.ui.home.Book;
-import com.example.bookapp.ui.home.BookViewHolder;
 
 import java.util.List;
 

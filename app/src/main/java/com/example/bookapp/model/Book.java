@@ -1,7 +1,4 @@
-package com.example.bookapp.ui.home;
-
-import com.example.bookapp.ui.authors.Author;
-import com.example.bookapp.ui.comments.Comment;
+package com.example.bookapp.model;
 
 import java.util.ArrayList;
 

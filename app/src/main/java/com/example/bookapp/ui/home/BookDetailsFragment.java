@@ -17,13 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bookapp.APIRequest;
 import com.example.bookapp.R;
 import com.example.bookapp.ViewModel;
-import com.example.bookapp.ui.authors.Author;
+import com.example.bookapp.model.Author;
+import com.example.bookapp.model.Book;
+import com.example.bookapp.model.Tag;
 import com.example.bookapp.ui.comments.CommentAdapter;
 import com.google.android.material.snackbar.Snackbar;
 

@@ -48,7 +48,7 @@ public class BookFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Log.d("TAG", "onClick: IL EST VIVANT");
-                Snackbar.make(view, "Pimp my book", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                //Snackbar.make(view, "Pimp my book", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                 Navigation.findNavController(view).navigate(R.id.book_add);
 
             }

@@ -1,4 +1,4 @@
-package com.example.bookapp.ui.comments;
+package com.example.bookapp.model;
 
 import java.sql.Date;
 import java.time.LocalDateTime;

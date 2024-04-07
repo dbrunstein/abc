@@ -10,16 +10,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.example.bookapp.ui.authors.Author;
-import com.example.bookapp.ui.home.Book;
-import com.example.bookapp.ui.comments.Comment;
-import com.example.bookapp.ui.home.Tag;
+import com.example.bookapp.model.Author;
+import com.example.bookapp.model.Book;
+import com.example.bookapp.model.Comment;
+import com.example.bookapp.model.Tag;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

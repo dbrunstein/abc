@@ -2,7 +2,6 @@ package com.example.bookapp.ui.home;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookapp.R;
-import com.example.bookapp.ui.authors.Author;
-import com.example.bookapp.ui.authors.AuthorViewHolder;
 
+import com.example.bookapp.model.Book;
 import com.example.bookapp.ui.authors.OnItemClickListener;
-import org.json.JSONArray;
 
 import java.util.List;
 

@@ -2,19 +2,17 @@ package com.example.bookapp.ui.authors;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.bookapp.R;
-import com.example.bookapp.ui.home.Book;
+import com.example.bookapp.model.Author;
+import com.example.bookapp.model.Book;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 import java.util.List;
