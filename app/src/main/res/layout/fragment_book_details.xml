@@ -6,11 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.BookDetailsFragment">
+    tools:context=".ui.books.BookDetailsFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
 
+    <RatingBar
+        android:id="@+id/ratingBarMean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:isIndicator="true"/>
     <TextView
         android:id="@+id/bookDate"
         android:layout_width="wrap_content"
@@ -34,13 +40,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment" />
-    
+
 
     <Button
         android:id="@+id/delete_book"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/delete" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/commentRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

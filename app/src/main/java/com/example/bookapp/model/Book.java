@@ -1,6 +1,4 @@
-package com.example.bookapp.ui.home;
-
-import com.example.bookapp.ui.authors.Author;
+package com.example.bookapp.model;
 
 import java.util.ArrayList;
 
@@ -13,16 +11,32 @@ public class Book {
     private int date;
     private ArrayList<Tag> tags;
     //private String description;
-    //private double rating;
-    //private ArrayList<Tag> tags;
-    //private ArrayList<Comment> comments;
+    private double rating;
+    private ArrayList<Comment> comments;
 
+    public Book(int id, String title, Author author,int date,ArrayList<Tag> tags, ArrayList<Comment> comments){
+        this.title = title;
+        this.id = id;
+        this.author = author;
+        this.date = date;
+        this.tags = tags;
+        this.comments = comments;
+    }
+    public Book(int id, String title, Author author,int date, ArrayList<Comment> comments){
+        this.title = title;
+        this.id = id;
+        this.author = author;
+        this.date = date;
+        this.tags = new ArrayList<>();
+        this.comments = comments;
+    }
     public Book(int id, String title, Author author,int date){
         this.title = title;
         this.id = id;
         this.author = author;
         this.date = date;
         this.tags = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public int getId() {
@@ -48,6 +62,20 @@ public class Book {
 
     public void setAuthor(Author auth){
         author = auth;
+    }
+    public ArrayList<Comment>getComments(){
+        return comments;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
     /*
     public void setDescription(String desc){

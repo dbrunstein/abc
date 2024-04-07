@@ -1,4 +1,4 @@
-package com.example.bookapp.ui.home;
+package com.example.bookapp.ui.books;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +16,7 @@ import com.example.bookapp.R;
 import com.example.bookapp.ViewModel;
 import com.example.bookapp.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
 public class BookFragment extends Fragment {
 
     private FragmentHomeBinding binding;
@@ -48,7 +48,7 @@ public class BookFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Log.d("TAG", "onClick: IL EST VIVANT");
-                Snackbar.make(view, "Pimp my book", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                //Snackbar.make(view, "Pimp my book", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                 Navigation.findNavController(view).navigate(R.id.book_add);
 
             }

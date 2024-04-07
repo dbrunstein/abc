@@ -1,4 +1,4 @@
-package com.example.bookapp.ui.home;
+package com.example.bookapp.ui.books;
 
 import android.view.View;
 import android.widget.TextView;

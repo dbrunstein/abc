@@ -1,10 +1,11 @@
-package com.example.bookapp.ui.home;
+package com.example.bookapp.ui.books;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,14 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bookapp.APIRequest;
 import com.example.bookapp.R;
 import com.example.bookapp.ViewModel;
-import com.example.bookapp.ui.authors.Author;
+import com.example.bookapp.model.Author;
+import com.example.bookapp.model.Book;
+import com.example.bookapp.model.Tag;
+import com.example.bookapp.ui.comments.CommentAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -48,14 +54,20 @@ public class BookDetailsFragment extends Fragment {
         TextView authorView = root.findViewById(R.id.bookAuthor);
         TextView tagView = root.findViewById(R.id.bookTags);
         Button delete_book = root.findViewById(R.id.delete_book);
+        RatingBar ratingBar = root.findViewById(R.id.ratingBarMean);
+        RecyclerView mRecyclerView = root.findViewById(R.id.commentRecyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         viewModel.getBooks().observe(getViewLifecycleOwner(), books -> {
             Book book = viewModel.getBook(id);
             viewModel.fetchBooksWithTags(book);
+            viewModel.fetchCommentsWithBookId(book);
+            viewModel.fetchRatingWithBookId(book);
             if (book != null) {
 
                 titleView.setText("Title : " + book.getTitle());
                 dateView.setText("Release Year : " + book.getDate());
+                ratingBar.setRating((float)book.getRating());
 
                 Author author = book.getAuthor();
                 StringBuilder allTags = new StringBuilder();
@@ -74,8 +86,10 @@ public class BookDetailsFragment extends Fragment {
                 else
                     Log.d("erreur", "author not found");
                 }
-
+                CommentAdapter mAdapter = new CommentAdapter(book.getComments());
+                mRecyclerView.setAdapter(mAdapter);
         });
+
             delete_book.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -9,11 +9,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.bookapp.ui.authors.Author;
-import com.example.bookapp.ui.home.Book;
-import com.example.bookapp.ui.home.Tag;
+import com.example.bookapp.model.Author;
+import com.example.bookapp.model.Book;
+import com.example.bookapp.model.Comment;
+import com.example.bookapp.model.Tag;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel extends AndroidViewModel {
@@ -22,6 +22,7 @@ public class ViewModel extends AndroidViewModel {
     private final MutableLiveData<List<Book>> books;
 
     private final MutableLiveData<List<Tag>> tags;
+    private final MutableLiveData<List<Comment>> comments;
     private APIRequest apiRequest = new APIRequest();
     private RequestQueue queue;
 
@@ -32,9 +33,11 @@ public class ViewModel extends AndroidViewModel {
         authors = new MutableLiveData<>();
         tags = new MutableLiveData<>();
         queue = Volley.newRequestQueue(application.getApplicationContext());
+        comments = new MutableLiveData<>();
         this.load_authors();
         this.load_books();
         this.load_tags();
+        this.load_comments();
     }
 
     public LiveData<List<Author>> getAuthors() {
@@ -77,6 +80,18 @@ public class ViewModel extends AndroidViewModel {
     public void load_tags(){
         JsonArrayRequest getTagsRequest = apiRequest.getTags(tags);
         queue.add(getTagsRequest);
+    }
+    public void load_comments(){
+        JsonArrayRequest getCommentsRequest = apiRequest.getComments(comments);
+        queue.add(getCommentsRequest);
+    }
+    public void fetchCommentsWithBookId(Book book){
+        JsonArrayRequest getBookIdCommentsRequest = apiRequest.getCommentsOfBook(book);
+        queue.add(getBookIdCommentsRequest);
+    }
+    public void fetchRatingWithBookId(Book book){
+        JsonArrayRequest getBookIdRatingRequest = apiRequest.getRatingOfBook(book);
+        queue.add(getBookIdRatingRequest);
     }
 
     public void fetchBooksWithTags(Book book) {

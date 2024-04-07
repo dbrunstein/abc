@@ -1,4 +1,4 @@
-package com.example.bookapp.ui.home;
+package com.example.bookapp.ui.books;
 
 import android.os.Bundle;
 
@@ -11,22 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bookapp.APIRequest;
 import com.example.bookapp.R;
 import com.example.bookapp.ViewModel;
-import com.example.bookapp.ui.authors.Author;
-import com.google.android.material.snackbar.Snackbar;
-import java.io.Console;
+import com.example.bookapp.model.Author;
+
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Collection;
 
 /**
  * A simple {@link Fragment} subclass.
