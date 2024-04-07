@@ -19,7 +19,15 @@ Utilisation de recycler view pour l'affichage des titres ```Book```, nom et pré
 ### Model
 Implémentation d'objet ```Author```, ```Book```, ```Comment``` et ```Tag```
 
-
+### Lien vers l'api
+Afin de faire fonctionner l'application, il est impératif de changer le lien
+présent dans ```APIRequest```
+```
+    public APIRequest() {
+        this.view = view;
+        this.apiBaseName = "http://192.168.123.131:3000"; // mettre l'ip vers l'api
+    }
+```
 
 
 Fonctionnalités
