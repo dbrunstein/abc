@@ -21,7 +21,7 @@ Implémentation d'objet ```Author```, ```Book```, ```Comment``` et ```Tag```
 
 ### Lien vers l'api
 Afin de faire fonctionner l'application, il est impératif de changer le lien
-présent dans ```APIRequest```
+présent dans ```APIRequest``` avec le bon port
 ```
     public APIRequest() {
         this.view = view;
