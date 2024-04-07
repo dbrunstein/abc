@@ -9,7 +9,13 @@ public class Comment {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String userName;
-
+    public Comment(int id, String content, String userName){
+        this.id = id;
+        this.content = content;
+        this.createdAt = null;
+        this.updatedAt = null;
+        this.userName = userName;
+    }
     public Comment(int id, String content, LocalDateTime createdAt, LocalDateTime updatedAt, String userName){
         this.id = id;
         this.content = content;

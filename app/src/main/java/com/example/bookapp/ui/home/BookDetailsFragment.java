@@ -23,6 +23,7 @@ import com.example.bookapp.APIRequest;
 import com.example.bookapp.R;
 import com.example.bookapp.ViewModel;
 import com.example.bookapp.ui.authors.Author;
+import com.example.bookapp.ui.comments.CommentAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -81,7 +82,7 @@ public class BookDetailsFragment extends Fragment {
                 else
                     Log.d("erreur", "author not found");
                 }
-                BookAdapter mAdapter = new BookAdapter(books);
+                CommentAdapter mAdapter = new CommentAdapter(book.getComments());
                 mRecyclerView.setAdapter(mAdapter);
         });
 

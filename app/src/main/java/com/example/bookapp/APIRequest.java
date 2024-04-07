@@ -250,8 +250,8 @@ public class APIRequest {
 
                                 Comment newComment = new Comment(commentList.getInt("id"),
                                         commentList.getString("content"),
-                                        LocalDateTime.parse(commentList.getString("createdAt")),
-                                        LocalDateTime.parse(commentList.getString("updatedAt")),
+                                        //LocalDateTime.parse(commentList.getString("createdAt")),
+                                        //LocalDateTime.parse(commentList.getString("updatedAt")),
                                         commentList.getString("username"));
                                 comments.add(newComment);
                             } catch (JSONException e) {
@@ -296,8 +296,8 @@ public class APIRequest {
 
                                 Comment newComment = new Comment(commentList.getInt("id"),
                                         commentList.getString("content"),
-                                        LocalDateTime.parse(commentList.getString("createdAt")),
-                                        LocalDateTime.parse(commentList.getString("updatedAt")),
+                                        //LocalDateTime.parse(commentList.getString("createdAt")),
+                                        //LocalDateTime.parse(commentList.getString("updatedAt")),
                                         commentList.getString("username"));
                                 tempListComment.add(newComment);
                             } catch (JSONException e) {

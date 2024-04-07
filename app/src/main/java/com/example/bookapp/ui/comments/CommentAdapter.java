@@ -30,8 +30,8 @@ public class CommentAdapter extends RecyclerView.Adapter{
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.book_item, viewGroup, false);
-        return new BookViewHolder(view, clickListener);
+                .inflate(R.layout.comment_item, viewGroup, false);
+        return new CommentViewHolder(view, clickListener);
     }
 
     @Override
