@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -49,9 +52,13 @@ public class BookDetailsFragment extends Fragment {
         TextView tagView = root.findViewById(R.id.bookTags);
         Button delete_book = root.findViewById(R.id.delete_book);
 
+        RecyclerView mRecyclerView = root.findViewById(R.id.commentRecyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         viewModel.getBooks().observe(getViewLifecycleOwner(), books -> {
             Book book = viewModel.getBook(id);
             viewModel.fetchBooksWithTags(book);
+            viewModel.fetchCommentsWithBookId(book);
             if (book != null) {
 
                 titleView.setText("Title : " + book.getTitle());
@@ -74,8 +81,10 @@ public class BookDetailsFragment extends Fragment {
                 else
                     Log.d("erreur", "author not found");
                 }
-
+                BookAdapter mAdapter = new BookAdapter(books);
+                mRecyclerView.setAdapter(mAdapter);
         });
+
             delete_book.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

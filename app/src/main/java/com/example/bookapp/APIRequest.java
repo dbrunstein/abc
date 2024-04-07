@@ -3,7 +3,7 @@ package com.example.bookapp;
 import android.util.Log;
 import android.view.View;
 import androidx.lifecycle.MutableLiveData;
-import com.android.volley.AuthFailureError;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -12,18 +12,16 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.bookapp.ui.authors.Author;
 import com.example.bookapp.ui.home.Book;
+import com.example.bookapp.ui.comments.Comment;
 import com.example.bookapp.ui.home.Tag;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static android.service.controls.ControlsProviderService.TAG;
 
 public class APIRequest {
 
@@ -32,7 +30,7 @@ public class APIRequest {
 
     public APIRequest() {
         this.view = view;
-        this.apiBaseName = "http://192.168.1.35:3000";
+        this.apiBaseName = "http://192.168.123.131:3000";
     }
 
     public JsonArrayRequest getAuthors(MutableLiveData<List<Author>> res) {
@@ -112,7 +110,11 @@ public class APIRequest {
                                 int id = book.getInt("id");
                                 String title = book.getString("title");
                                 int date = book.getInt("date");
-                                Author author = new Author(book.getJSONObject("author").getInt("id"), book.getJSONObject("author").getString("firstname"),book.getJSONObject("author").getString("lastname"));
+                                Author author = new Author(book.getJSONObject("author").getInt("id"),
+                                        book.getJSONObject("author").getString("firstname"),
+                                        book.getJSONObject("author").getString("lastname"));
+
+
                                 Book newBook = new Book(id, title, author,date);
                                 books.add(newBook);// Ajouter les informations du livre
                             } catch (JSONException e) {
@@ -225,6 +227,100 @@ public class APIRequest {
 
         return jsonArrayRequest;
     }
+
+    public JsonArrayRequest getComments(MutableLiveData<List<Comment>> res) {
+
+        List<Comment> comments = new ArrayList<>();
+
+        String url = apiBaseName+"/comments";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // Traitement de la réponse JSON
+                        // Par exemple, afficher la réponse dans la console
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject commentList = response.getJSONObject(i);
+
+                                //Tag newTag = new Tag(commentList.getInt("id"), commentList.getString("name"));
+                                //Log.d("tags",newTag.getName() );
+
+                                Comment newComment = new Comment(commentList.getInt("id"),
+                                        commentList.getString("content"),
+                                        LocalDateTime.parse(commentList.getString("createdAt")),
+                                        LocalDateTime.parse(commentList.getString("updatedAt")),
+                                        commentList.getString("username"));
+                                comments.add(newComment);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        res.setValue(comments);
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Gérer les erreurs de requête
+                        Log.e("VolleyError", "Erreur lors de la requête", error);
+                    }
+                });
+
+        return jsonArrayRequest;
+    }
+
+    public JsonArrayRequest getCommentsOfBook(Book book) {
+
+        List<Comment> comments = new ArrayList<>();
+
+        String url = apiBaseName+"/books/"+book.getId()+"/comments";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // Traitement de la réponse JSON
+                        // Par exemple, afficher la réponse dans la console
+                        ArrayList<Comment> tempListComment = new ArrayList<>();
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject commentList = response.getJSONObject(i);
+
+                                //Tag newTag = new Tag(commentList.getInt("id"), commentList.getString("name"));
+                                //Log.d("tags",newTag.getName() );
+
+                                Comment newComment = new Comment(commentList.getInt("id"),
+                                        commentList.getString("content"),
+                                        LocalDateTime.parse(commentList.getString("createdAt")),
+                                        LocalDateTime.parse(commentList.getString("updatedAt")),
+                                        commentList.getString("username"));
+                                tempListComment.add(newComment);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        book.setComments(tempListComment);
+                        //res.setValue(comments);
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Gérer les erreurs de requête
+                        Log.e("VolleyError", "Erreur lors de la requête", error);
+                    }
+                });
+
+        return jsonArrayRequest;
+    }
+
+
     public JsonObjectRequest addAuthor(String firstname, String lastname) {
         String url = apiBaseName + "/authors";
 
