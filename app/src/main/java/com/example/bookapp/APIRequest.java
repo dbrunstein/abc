@@ -29,7 +29,7 @@ public class APIRequest {
 
     public APIRequest() {
         this.view = view;
-        this.apiBaseName = "http://192.168.123.131:3000";
+        this.apiBaseName = "http://192.168.123.131:3000"; // mettre l'ip vers l'api
     }
 
     public JsonArrayRequest getAuthors(MutableLiveData<List<Author>> res) {
